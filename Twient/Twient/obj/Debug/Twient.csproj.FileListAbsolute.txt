@@ -1,0 +1,6 @@
+C:\Users\Adminuser\Desktop\Twient\Twient\bin\Debug\Twient.exe.config
+C:\Users\Adminuser\Desktop\Twient\Twient\bin\Debug\Twient.exe
+C:\Users\Adminuser\Desktop\Twient\Twient\bin\Debug\Twient.pdb
+C:\Users\Adminuser\Desktop\Twient\Twient\obj\Debug\Twient.csprojResolveAssemblyReference.cache
+C:\Users\Adminuser\Desktop\Twient\Twient\obj\Debug\Twient.exe
+C:\Users\Adminuser\Desktop\Twient\Twient\obj\Debug\Twient.pdb
