@@ -1,10 +1,6 @@
 ﻿/*
- * Created by SharpDevelop.
- * User: Adminuser
- * Date: 6/6/2017
- * Time: 11:05 AM
+ * User: Voraka
  * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 namespace Twient
 {
