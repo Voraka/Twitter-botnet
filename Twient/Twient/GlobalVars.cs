@@ -8,6 +8,8 @@ namespace Twient
 		// Token: 0x04000015 RID: 21
 		public static string Autostart = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
 
+		public static string Backpath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+		
 		// Token: 0x04000011 RID: 17
 		public static bool Beeper = false;
 
