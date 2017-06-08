@@ -25,9 +25,11 @@ namespace Twient
 		// Token: 0x0400000E RID: 14
 		public static string path = "C:\\Program Files (x86)\\PDTS\\Twient\\";
 
+		public static string[] cmds;
+		
 		// Token: 0x0400000F RID: 15
 		public static string Version = "2.0.1";
-
+		
 		// Token: 0x04000010 RID: 16
 		public static string VersionPath = GlobalVars.path + GlobalVars.Version;
 		
