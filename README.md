@@ -1,6 +1,6 @@
 # Twitter-bot
 
-A simple Botnet written in c-sharp, use Twitter message as C&C.
+A simple Botnet written in c-sharp, use Twitter message as C&C (payload: 9e2536fde5a8cf7ebdec0fd4527860759b96e880).
 ---------------------
 
 C&C = [
